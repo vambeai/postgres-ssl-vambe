@@ -1,3 +1,10 @@
 [build]
 builder = "dockerfile"
 dockerfile = "Dockerfile.16"
+
+[phases.setup]
+aptPkgs = ["openssl", "wget"]
+
+[phases.build]
+cmds = ["chmod +x init-ssl.sh", "./init-ssl.sh"]
+
