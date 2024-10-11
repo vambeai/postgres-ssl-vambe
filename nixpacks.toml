@@ -6,7 +6,7 @@ builder = "dockerfile"
 dockerfile = "Dockerfile.16"
 
 [start]
-cmd = "chmod +x wrapper.sh && ./wrapper.sh"
+cmd = "docker run -v $(pwd)/wrapper.sh:/usr/local/bin/wrapper.sh -e PGDATA=/var/lib/postgresql/data -e PGUSER=postgres -e PGPASSWORD=MTHccZteMckHfwTpDznkBpSinpnxcLIo -e PGDATABASE=railway -e PGPORT=5432 -e SSL_CERT_DAYS=820 my_postgres_image:latest"
 
 [variables]
 PGDATA = "/var/lib/postgresql/data"
