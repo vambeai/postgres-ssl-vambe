@@ -8,3 +8,6 @@ aptPkgs = ["openssl", "wget"]
 [phases.build]
 cmds = ["chmod +x init-ssl.sh", "./init-ssl.sh"]
 
+[start]
+cmd = "./wrapper.sh"
+
