@@ -9,7 +9,7 @@ aptPkgs = ["openssl", "wget", "postgresql"]
 cmds = ["chmod +x init-ssl.sh", "./init-ssl.sh"]
 
 [start]
-cmd = "./init-ssl.sh"
+cmd = "postgres --port=5432"
 
 [variables]
 PGDATA = "/var/lib/postgresql/data"
