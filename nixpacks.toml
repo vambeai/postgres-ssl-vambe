@@ -1,7 +1,7 @@
-[phases.setup]
+[setup]
 aptPkgs = ["openssl", "wget", "postgresql"]
 
-[phases.build]
+[build]
 builder = "dockerfile"
 dockerfile = "Dockerfile.16"
 
