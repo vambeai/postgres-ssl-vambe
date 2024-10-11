@@ -1,12 +1,12 @@
-[setup]
+[phases.setup]
 aptPkgs = ["openssl", "wget", "postgresql"]
 
-[build]
+[phases.build]
 builder = "dockerfile"
 dockerfile = "Dockerfile.16"
 
 [start]
-runImage = "docker.io/library/postgres:16"
+cmd = "chmod +x wrapper.sh && ./wrapper.sh"
 
 [variables]
 PGDATA = "/var/lib/postgresql/data"
