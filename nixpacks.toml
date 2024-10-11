@@ -9,7 +9,7 @@ aptPkgs = ["openssl", "wget", "postgresql"]
 cmds = ["chmod +x init-ssl.sh", "chmod +x wrapper.sh", "./init-ssl.sh"]
 
 [start]
-cmd = "docker-entrypoint.sh postgres"
+cmd = "chmod +x wrapper.sh && ./wrapper.sh"
 
 [variables]
 PGDATA = "/var/lib/postgresql/data"
