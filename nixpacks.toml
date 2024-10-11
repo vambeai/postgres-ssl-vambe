@@ -9,7 +9,12 @@ aptPkgs = ["openssl", "wget", "postgresql"]
 cmds = ["chmod +x init-ssl.sh", "./init-ssl.sh"]
 
 [start]
-cmd = "/usr/local/bin/wrapper.sh"
+cmd = "./wrapper.sh"
 
 [variables]
 PGDATA = "/var/lib/postgresql/data"
+PGUSER = "postgres"
+PGPASSWORD = "MTHccZteMckHfwTpDznkBpSinpnxcLIo"
+PGDATABASE = "railway"
+PGPORT = "5432"
+SSL_CERT_DAYS = "820"
