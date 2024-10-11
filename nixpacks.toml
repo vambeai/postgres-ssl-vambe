@@ -6,11 +6,18 @@ dockerfile = "Dockerfile.16"
 aptPkgs = ["openssl", "wget", "postgresql"]
 
 [phases.build]
-cmds = ["chmod +x init-ssl.sh", "./init-ssl.sh"]
+# Ensure the init-ssl.sh script is executable and run it during the build phase
+cmds = ["chmod +x /docker-entrypoint-initdb.d/init-ssl.sh", "/docker-entrypoint-initdb.d/init-ssl.sh"]
 
 [start]
-cmd = "./wrapper.sh"
+# Ensure the wrapper script has the correct path and is executable
+cmd = "/usr/local/bin/wrapper.sh"
 
 [variables]
+# Set up PostgreSQL-related environment variables for your app
 PGDATA = "/var/lib/postgresql/data"
-
+PGUSER = "postgres"
+PGPASSWORD = "MTHccZteMckHfwTpDznkBpSinpnxcLIo"
+PGDATABASE = "railway"
+PGPORT = "5432"
+SSL_CERT_DAYS = "820"
