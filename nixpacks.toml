@@ -1,17 +1,31 @@
 [build]
-builder = "dockerfile"
-dockerfile = "Dockerfile.16"
+builder = "nixpacks"
 
 [phases.setup]
-aptPkgs = ["openssl", "wget", "postgresql"]
+aptPkgs = [
+    "openssl",
+    "sudo",
+    "postgresql-16",
+    "postgresql-16-pglogical"
+]
 
 [phases.build]
-cmds = ["chmod +x init-ssl.sh", "chmod +x wrapper.sh", "./init-ssl.sh"]
+cmds = [
+    "echo 'postgres ALL=(root) NOPASSWD: /usr/bin/mkdir, /bin/chown, /usr/bin/openssl' > /etc/sudoers.d/postgres",
+    "chmod 755 init-ssl.sh",
+    "chmod 755 wrapper.sh",
+    "chmod 755 config-wal.sh",
+    "cp init-ssl.sh /docker-entrypoint-initdb.d/",
+    "cp wrapper.sh /usr/local/bin/",
+    "cp config-wal.sh /docker-entrypoint-initdb.d/",
+    "echo 'shared_preload_libraries = ''pglogical''' >> /usr/share/postgresql/postgresql.conf.sample"
+]
 
 [start]
-cmd = "chmod +x wrapper.sh && ./wrapper.sh"
+cmd = "chmod +x /usr/local/bin/wrapper.sh && /usr/local/bin/wrapper.sh postgres --port=5432"
 
 [variables]
+POSTGRES_INITDB_ARGS = "--wal-level=logical"
 PGDATA = "/var/lib/postgresql/data"
 PGUSER = "postgres"
 PGPASSWORD = "MTHccZteMckHfwTpDznkBpSinpnxcLIo"
